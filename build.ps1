@@ -11,7 +11,7 @@ if ($mypath -eq $null)
 }
 $mypath
 
-Remove-Item -path $mypath -Filter text2pdf* -WhatIf
+#Remove-Item -path $mypath\ -Filter *text2pdf* -WhatIf
 
 $json = Get-Content "$mypath\configuration.json" | Out-String | ConvertFrom-Json
 
