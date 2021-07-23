@@ -25,6 +25,15 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
+      - name: Chocolatey Action
+        # You may pin to the exact commit or the version.
+        # uses: crazy-max/ghaction-chocolatey@d025252287b66c3fb7d795cc8932dec97630cd53
+        uses: crazy-max/ghaction-chocolatey@v1.5.0
+        with:
+          # Arguments to pass to Chocolatey
+          args: Pandoc
+
+
       - name: PowerShell script
         # You may pin to the exact commit or the version.
         # uses: Amadevus/pwsh-script@1f1751bbf3d1a92127bfc6c32403283625880cbf
