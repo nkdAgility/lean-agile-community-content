@@ -31,7 +31,7 @@ jobs:
         uses: crazy-max/ghaction-chocolatey@v1.5.0
         with:
           # Arguments to pass to Chocolatey
-          args: Pandoc
+          args: install Pandoc
 
 
       - name: PowerShell script
