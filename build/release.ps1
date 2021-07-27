@@ -2,6 +2,9 @@ Clear-Host
 Set-Location $PSScriptRoot
 
 . .\include-logging.ps1
+. .\include-modules.ps1
+RequiredModule PowerShellForGitHub
+RequiredModule PoShLog
 
 Write-InfoLog "========================================================"
 Write-InfoLog "========================================================"
@@ -9,12 +12,6 @@ Write-InfoLog "Release naked Agility Lean-Agile Content"
 Write-InfoLog "========================================================"
 Write-InfoLog "========================================================"
 
-. .\include-modules.ps1
-RequiredModule PowerShellForGitHub
-RequiredModule PoShLog
-
-
-#. .\build.ps1
 
 $repoRoot = Split-Path $PSScriptRoot -Parent
 if ($repoRoot -eq $null)
@@ -23,7 +20,16 @@ if ($repoRoot -eq $null)
 }
 Set-Location $repoRoot
 
-$version = gitversion.exe | ConvertFrom-Json
+$gitversion = gitversion.exe | ConvertFrom-Json
+$version = "0.1.0" #$version.SemVer
+Write-DebugLog "Version: {version}" -PropertyValues $version;
+
+
+& git fetch
+
+
+& .\build\build-all.ps1 -version $version
+
 
 $soureFolder = Join-Path -Path $repoRoot -ChildPath "source"
 
@@ -32,6 +38,8 @@ $releaseOutputPath = Join-Path -Path $repoRoot -ChildPath "staging"
 if (!(Test-Path $releaseOutputPath))
 {
     New-Item -itemType Directory -Path $releaseOutputPath
+} else {
+    Remove-Item $releaseOutputPath\*.*
 }
 Write-DebugLog "releaseOutputPath: {releaseOutputPath}" -PropertyValues (Resolve-Path $releaseOutputPath -Relative)
 
@@ -48,7 +56,7 @@ Foreach ($binFolder in $binFoldersFound)
     #Copy-Item -Filter *.* -Path $binFolder -Recurse -Destination $releaseOutputPath
 }
 
-$releaseversion = $version.SemVer
+$releaseversion = "v$version"
 
 Write-InfoLog "Version number is: {FullSemVer}" -PropertyValues $releaseversion
 # Create Release
@@ -60,24 +68,28 @@ if ($release -eq $null)
 }
 Write-InfoLog "Release: {releaseversion}" -PropertyValues $release.id
 
-[String[]] $ReleaseAssets = Get-GitHubReleaseAsset -OwnerName "nkdAgility" -RepositoryName "lean-agile-devops-content" -Release $release.id | Select-Object -ExpandProperty Name -Unique
+$ReleaseAssets = Get-GitHubReleaseAsset -OwnerName "nkdAgility" -RepositoryName "lean-agile-devops-content" -Release $release.id
+
 Write-InfoLog "Release Assets: {ReleaseAssetsCount}" -PropertyValues $ReleaseAssets.count
+#Write-InfoLog "Release Assets: {@ReleaseAssets}" -PropertyValues $ReleaseAssets 
 $localAssets = Get-ChildItem -Path $releaseOutputPath
 Write-InfoLog "Local Assets: {localAssetsCount}" -PropertyValues $localAssets.count
 foreach($localAssrt in $localAssets)
 {
-    if ($ReleaseAssets.Contains($localAssrt.Name))
+    $ReleaseAsset = $ReleaseAssets | Where-Object {$_.name -eq $localAssrt.Name}
+    Write-InfoLog "Release Asset: {ReleaseAsset}" -PropertyValues $ReleaseAsset.id
+    
+    if ($ReleaseAsset -eq $null)
     {
-        Write-InfoLog "Uploadign Asset: {localAssrtName}" -PropertyValues $localAssrt.Name
+        Write-InfoLog "Uploading  Asset: {localAssrtName}" -PropertyValues $localAssrt.Name
         $ReleaseAsset = New-GitHubReleaseAsset -OwnerName "nkdAgility" -RepositoryName "lean-agile-devops-content" -Release $release.id -Path $localAssrt.FullName
     
     } else {
-        Write-InfoLog "Asset Exists: {localAssrtName}" -PropertyValues $localAssrt.Name
+        Write-InfoLog "Existing Asset: {localAssrtName}" -PropertyValues $localAssrt.Name
+        #Set-GitHubReleaseAsset -OwnerName "nkdAgility" -RepositoryName "lean-agile-devops-content" -Asset $ReleaseAsset.id -Path $localAssrt.FullName   
     }
     
 }
-
-
 
 # Don't forget to close the logger
 Close-Logger

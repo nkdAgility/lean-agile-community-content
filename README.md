@@ -28,6 +28,7 @@ Note: PR's are approve by the Owners and they may ask for changes to tone or mes
 We have create a `build.ps1` and `release.ps1` files in the "build" folder. This file is cross platform and will run on Mac, Linux, and Windows:
 
 - [Powershell v7+ for mac, linux, or windows](https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell)
+  - [PowerShellForGitHub](https://github.com/microsoft/PowerShellForGitHub#configuration) - This is installed automtically, but you do need to run `Set-GitHubAuthentication` to setup your auth.
 - [PanDoc for mac, linux, or windows](https://pandoc.org/installing.html)
 - [GitVersion for mac, linux, or windows](https://gitversion.net/docs/usage/cli/installation)
 
