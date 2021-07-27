@@ -32,4 +32,12 @@ We have create a `build.ps1` and `release.ps1` files in the "build" folder. This
 - [PanDoc for mac, linux, or windows](https://pandoc.org/installing.html)
 - [GitVersion for mac, linux, or windows](https://gitversion.net/docs/usage/cli/installation)
 
-Once you have these installed you should be able to call `build.ps1` which will ./...
+Once you have installed the pre-requisites you can then run:
+
+- `.\build\build.ps1  -version 0.1.0 -project .\source\ws-introduction-to-agility\project.json` This will build a single project for testing with the output ending up in the project's bin folder; `.\source\ws-introduction-to-agility\bin\*`
+- `.\build\build-all.ps1 -version 0.1.0` This script will build all of the projects found within the `.\source\*` folder.
+- `.\build\release.ps1` This script will run a full build and then create and upload a release. This file generated the version number based on GitVersion. Creating a release will increment the next version number generated.
+
+### Incrementing the Version Number artificially
+
+The system will automatically create the next semantic version number based on the last tag on the git repo in that format. As each release tags the repo automatically the revision number will be incremented. If you want to increment the major or minor you can use the text `semver: major` or `semver: minor` in any commit or PR commit. Full documentation is available on the [GitVersion Documentation](https://gitversion.net/docs/reference/version-increments)
