@@ -61,7 +61,9 @@ foreach ($project in $projects)
     Write-DebugLog "Calling Pandoc" 
     Set-Location $projectpath
 
-    & pandoc -f gfm -s --include-in-header $objHeaderHexPath --include-before-body $objCoverHexPath --toc --toc-depth=3 -V geometry:margin=1in -o (Join-Path -Path $projectOutputPath -ChildPath "$($projectinfo.title).pdf") $projectinfo.files
+    $version = gitversion.exe | ConvertFrom-Json
+
+    & pandoc -f gfm -s --include-in-header $objHeaderHexPath --include-before-body $objCoverHexPath --toc --toc-depth=3 -V geometry:margin=1in -o (Join-Path -Path $projectOutputPath -ChildPath "$($projectinfo.title)-v$($version.NuGetVersionV2).pdf") $projectinfo.files
     Set-Location $repoRoot
     Write-InfoLog "=====BUILD PROJECT END {projectpathr}" -PropertyValues $projectpathr
 }
