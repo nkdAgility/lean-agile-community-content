@@ -23,3 +23,5 @@ This workshop will highlight the value of people and the need for different thin
 4. What, So What, Now What
 
 **Associated files**
+
+- [NKD-IA v1.0 Mural Template]
