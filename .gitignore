@@ -13,6 +13,8 @@ tex2pdf*/
 [Ll]ogs/
 [Bb]in/
 
+[Ss]taging/
+
 .doc
 .pdf
 .pptx
