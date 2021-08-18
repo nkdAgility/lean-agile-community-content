@@ -1,4 +1,9 @@
-param([Parameter(Mandatory=$true)] [string]$version)
+param([Parameter(Mandatory=$false)] [string]$version)
+
+if ($version -eq $null)
+{
+    $version = "0.0.0"
+}
 
 Set-Location $PSScriptRoot
 . .\include-logging.ps1
