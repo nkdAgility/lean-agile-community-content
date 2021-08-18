@@ -51,4 +51,4 @@ jobs:
         uses: Amadevus/pwsh-script@v2.0.1
         with:
           # PowerShell script to execute in Actions-hydrated context
-          script: .\build\buildall.ps1 -version $GITVERSION_SEMVER
+          script: .\build\buildall.ps1 -version ${{ steps.gitversion.outputs.semVer }}
