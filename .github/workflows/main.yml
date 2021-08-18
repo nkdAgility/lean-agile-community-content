@@ -52,6 +52,5 @@ jobs:
         with:
           # PowerShell script to execute in Actions-hydrated context
           script: |
-            Write-Host "SemVer: ${{ steps.gitversion.outputs.semVer }}"; 
             Write-Host "SemVer: $env:GitVersion_FullSemVer"; 
             .\build\buildall.ps1 -version $env:GitVersion_FullSemVer
