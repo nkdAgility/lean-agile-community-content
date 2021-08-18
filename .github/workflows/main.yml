@@ -51,4 +51,8 @@ jobs:
         uses: Amadevus/pwsh-script@v2.0.1
         with:
           # PowerShell script to execute in Actions-hydrated context
-          script: Write-Host "SemVer: ${{ steps.gitversion.outputs.semVer }}"; .\build\buildall.ps1 -version $GitVersion_FullSemVer
+          script: |
+            Write-Host "SemVer: ${{ steps.gitversion.outputs.semVer }}"; 
+            Write-Host "SemVer: ${{ GitVersion_FullSemVer }}"; 
+            Write-Host "SemVer: $GitVersion_FullSemVer"; 
+            .\build\buildall.ps1 -version $GitVersion_FullSemVer
