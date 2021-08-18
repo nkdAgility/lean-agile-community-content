@@ -1,11 +1,7 @@
 {
-    "title": "Introduction to Agility",
+    "title": "Bowling Game Kata",
     "buildoption": "Markdown2PDF",
     "files": [
-        "readme.md",
-        "1.GreatTeams.md",
-        "1.1-Characteristics.md",
-        "1.2-AgileManifesto.md",
-        "1.3-MapBehaviours.md"
+        "readme.md"
     ]
 }
