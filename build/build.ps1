@@ -35,7 +35,7 @@ if ($projectinfo.assets -ne $null)
         Copy-Item -Path $asset -Destination $projectOutputPath
     }
 }
-
+Write-DebugLog "buildoption: {buildoption}" -PropertyValues $projectinfo.buildoption
 if ( $projectinfo.buildoption -eq "Markdown2PDF")
 {
     Write-DebugLog "Process header.hex"

@@ -37,6 +37,7 @@ We have create a `build.ps1` and `release.ps1` files in the "build" folder. This
 - [Powershell v7+ for mac, linux, or windows](https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell)
   - [PowerShellForGitHub](https://github.com/microsoft/PowerShellForGitHub#configuration) - This is installed automtically, but you do need to run `Set-GitHubAuthentication` to setup your auth.
 - [PanDoc for mac, linux, or windows](https://pandoc.org/installing.html)
+- [MiKTeX for mac, linux, or windows](https://miktex.org/download)
 - [GitVersion for mac, linux, or windows](https://gitversion.net/docs/usage/cli/installation)
 
 Once you have installed the pre-requisites you can then run:

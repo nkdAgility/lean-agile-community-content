@@ -1,5 +1,6 @@
 {
     "title": "Introduction to Agility",
+    "buildoption": "Markdown2PDF",
     "files": [
         "readme.md",
         "1.GreatTeams.md",

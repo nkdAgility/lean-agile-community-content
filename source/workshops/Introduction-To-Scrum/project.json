@@ -1,5 +1,6 @@
 {
     "title": "Introduction to Scrum",
+    "buildoption": "Markdown2PDF",
     "files": [
         "readme.md"
     ]
