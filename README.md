@@ -1,11 +1,10 @@
 # Lean Agile & DevOps Guidance
 
 
-<<<<<<< HEAD
 ## How to Contribute to these docs
 
 This guidance is stored in the [Lean-Agile DevOps Content](https://github.com/nkdAgility/lean-agile-devops-content) under the ./source/ folder. Anyone can contribute by "forking" this Git Repository and adding or changing markdown content. When you submit your PR please list your changes and intent so that the Stewards can easily moderate it.
-=======
+
 
 ## Overview
 

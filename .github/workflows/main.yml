@@ -18,12 +18,15 @@ jobs:
   # This workflow contains a single job called "build"
   build:
     # The type of runner that the job will run on
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
+    timeout-minutes: 12
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
 
       - name: Chocolatey Action
         # You may pin to the exact commit or the version.
@@ -33,6 +36,13 @@ jobs:
           # Arguments to pass to Chocolatey
           args: install Pandoc
 
+      - name: Install GitVersion
+        uses: gittools/actions/gitversion/setup@v0.9.7
+        with:
+          versionSpec: '5.x'
+
+      - name: Determine Version
+        uses: gittools/actions/gitversion/execute@v0.9.7
 
       - name: PowerShell script
         # You may pin to the exact commit or the version.
@@ -40,4 +50,6 @@ jobs:
         uses: Amadevus/pwsh-script@v2.0.1
         with:
           # PowerShell script to execute in Actions-hydrated context
-          script: .\build\build.ps1
+          script: |
+            Write-Host "SemVer: $env:GitVersion_FullSemVer"; 
+            .\build\buildall.ps1 -version $env:GitVersion_FullSemVer
